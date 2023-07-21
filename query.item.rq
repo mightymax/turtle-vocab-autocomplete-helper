@@ -1,0 +1,30 @@
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?item ?category (str(sample(?labels)) as ?label) (str(sample(?descriptions)) as ?description) WHERE {
+  graph <$GRAPH> {
+  { 
+    ?item a/rdfs:subClassOf* ?class .
+  bind ('class' as ?category)
+    filter(?class in ( owl:Class, rdfs:Class ))
+  }
+  union
+  { 
+    ?item a/rdfs:subClassOf* ?class .
+  bind ('property' as ?category)
+    filter(?class in ( owl:ObjectProperty, owl:AnnotationProperty, owl:DatatypeProperty, rdf:Property ))
+  }
+  optional {
+    ?item rdfs:label|skos:prefLabel|dct:title ?labels
+    bind(lang(?labels) as ?langLabel)
+    filter(?langLabel = 'en' || bound(?langLabel))
+  }
+  optional {
+    ?item dct:description|rdfs:comment|skos:definition|skos:scopeNote ?descriptions
+    bind(lang(?descriptions) as ?langDescription)
+    filter(?langDescription = 'en' || bound(?langDescription))
+  }
+} }
+group by ?item ?category

@@ -1,0 +1,34 @@
+{
+  "name": "turtle-vocab-autocomplete-helper",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Helper project that generates required JSON files for the corresponding VSC Extension.",
+  "main": "dist/main.js",
+  "scripts": {
+    "dev": "npx tsc -p ./tsconfig.json --watch",
+    "build": "npx tsc -p ./tsconfig.json",
+    "generate": "node dist/main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mightymax/turtle-vocab-autocomplete-helper.git"
+  },
+  "author": "Mark Lindeman",
+  "license": "EUPL-1.2",
+  "bugs": {
+    "url": "https://github.com/mightymax/turtle-vocab-autocomplete-helper/issues"
+  },
+  "homepage": "https://github.com/mightymax/turtle-vocab-autocomplete-helper#readme",
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/n3": "^1.16.0",
+    "@zazuko/vocabularies": "^2.0.0",
+    "glob": "^10.3.3",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@comunica/query-sparql": "^2.8.1",
+    "@types/dedent": "^0.7.0",
+    "dedent": "^1.2.0"
+  }
+}
